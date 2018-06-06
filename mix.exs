@@ -24,7 +24,8 @@ defmodule EventSerializer.MixProject do
     [
       {:avlizer, "~> 0.2.0"},
       {:poison, "~> 3.1.0", override: true},
-      {:tesla, "~> 0.10.0"}
+      {:tesla, "~> 0.10.0"},
+      {:env_config, "~> 0.1.0"}
     ]
   end
 end

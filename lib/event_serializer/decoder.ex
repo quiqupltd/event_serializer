@@ -3,6 +3,8 @@ defmodule EventSerializer.Decoder do
   This module is resposible to decode the messages from a Kafka topic.
   """
 
+  alias EventSerializer.Helpers.MapBuilder
+
   @doc """
   This function decodes the message from a Kafka topic. First we get the `schema_id`
   in the message so we can fetch the schema which will be already cached
@@ -15,6 +17,8 @@ defmodule EventSerializer.Decoder do
     decoder = :avlizer_confluent.make_decoder(parsed_schema_id)
     decoded_message = :avlizer_confluent.decode(decoder, payload)
 
-    {:ok, decoded_message}
+    tracking_location = MapBuilder.to_map(decoded_message)
+
+    {:ok, tracking_location}
   end
 end

@@ -17,8 +17,8 @@ defmodule EventSerializer.Decoder do
     decoder = :avlizer_confluent.make_decoder(parsed_schema_id)
     decoded_message = :avlizer_confluent.decode(decoder, payload)
 
-    tracking_location = MapBuilder.to_map(decoded_message)
+    mapped_message = MapBuilder.to_map(decoded_message)
 
-    {:ok, tracking_location}
+    {:ok, mapped_message}
   end
 end

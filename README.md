@@ -48,11 +48,9 @@ Just call the `EventSerializer.Decoder.call/1` passing the message.
 {:ok, decoded_message} = EventSerializer.Decoder.call(message)
 ```
 
-### Helpers
+The message is also converted to a map with string key within the response.
 
-Since we need to pass a list of tuples we need to convert to a map after decode the message.
-You can use the `EventSerializer.Helpers.MapBuilder.to_map/1` function to do that. It will return
-a map with string keys. String keys are recommend due the performance.
+String keys are recommend due the performance.
 
 ## TODO
 

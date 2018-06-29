@@ -52,6 +52,15 @@ The message is also converted to a map with string key within the response.
 
 String keys are recommend due the performance.
 
+## Publish to HEX
+
+https://hex.pm/packages/quiqup/event_serializer
+
+```elixir
+mix hex.organization auth quiqup
+mix hex.publish
+```
+
 ## TODO
 
 - [ ] Add tests.

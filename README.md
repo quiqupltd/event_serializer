@@ -7,7 +7,7 @@ This lib is responsible to encode and decode events from Kafka. it also includes
 ```elixir
 def deps do
   [
-    {:event_serializer, "~> 0.1.0"}
+    {:event_serializer, "~> 0.1.0", organization: :quiqup}
   ]
 end
 ```
@@ -51,6 +51,15 @@ Just call the `EventSerializer.Decoder.call/1` passing the message.
 The message is also converted to a map with string key within the response.
 
 String keys are recommend due the performance.
+
+## Publish to HEX
+
+https://hex.pm/packages/quiqup/event_serializer
+
+```elixir
+mix hex.organization auth quiqup
+mix hex.publish
+```
 
 ## TODO
 

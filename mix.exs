@@ -7,7 +7,9 @@ defmodule EventSerializer.MixProject do
       version: "0.1.0",
       elixir: "~> 1.4",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      description: description(),
+      package: package(),
     ]
   end
 
@@ -23,9 +25,22 @@ defmodule EventSerializer.MixProject do
   defp deps do
     [
       {:avlizer, "~> 0.2.0"},
-      {:poison, "~> 3.1.0", override: true},
+      {:poison, "~> 3.1.0"},
       {:tesla, "~> 0.10.0"},
-      {:env_config, "~> 0.1.0"}
+      {:env_config, "~> 0.1.0"},
+      {:ex_doc, ">= 0.0.0", only: :dev},
+    ]
+  end
+
+  defp description, do: "Encode and decode events from Kafka"
+
+  defp package do
+    [
+      files: ["lib", "mix.exs"],
+      organization: "quiqup",
+      maintainers: ["Luiz Varela", "Ian Vaughan"],
+      licenses: ["UNLICENSED"],
+      links: %{repository: "https://gitlab.quiqup.com/backend/event_serializer"}
     ]
   end
 end

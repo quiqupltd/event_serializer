@@ -11,7 +11,7 @@ defmodule EventSerializer.Decoder do
   by the `EventSerializer.SchemaRegistryCache`.
   """
   def call(event) do
-    <<magic_bytes::bytes-size(4), schema_id::bytes-size(1), payload::binary>> = event
+    <<_magic_bytes::bytes-size(4), schema_id::bytes-size(1), payload::binary>> = event
     <<parsed_schema_id::utf8>> = schema_id
 
     decoder = :avlizer_confluent.make_decoder(parsed_schema_id)

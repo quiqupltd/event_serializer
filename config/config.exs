@@ -15,7 +15,8 @@ config :avlizer,
 # {:system, :string, "AVLIZER_CONFLUENT_SCHEMAREGISTRY_URL", "http://localhost:8081"}
 config :event_serializer,
   schema_registry_url: "http://localhost:8081",
-  topic_name: "com.quiqup.tracking_locations"
+  topic_name: "com.quiqup.tracking_locations",
+  enabled: true
 
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment

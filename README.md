@@ -26,9 +26,16 @@ config :avlizer,
 
 config :event_serializer,
   schema_registry_url: "http://localhost:8081",
-  topic_name: "com.example.topic.name"
+  topic_name: "com.example.topic.name",
+  enabled: true
 ```
 We need those two `schema_registry_url` because the `avlizer` requires it.
+
+Under tests you will want to disable the starting the child processes that
+caches the schemes, so it doesn't try and connect to Schema Registry and die
+```
+enabled: false
+```
 
 ### Encoding Messages
 

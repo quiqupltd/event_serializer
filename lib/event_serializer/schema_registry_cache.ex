@@ -57,8 +57,11 @@ defmodule EventSerializer.SchemaRegistryCache do
   def handle_call({:fetch, schema_name}, _from, state) do
     schema = Enum.find(state, fn subject -> subject.name == schema_name end)
 
-    {:reply, schema.id, state}
+    {:reply, extract_id(schema), state}
   end
+
+  defp extract_id(schema) when is_nil(schema), do: nil
+  defp extract_id(schema), do: schema.id
 
   @doc """
   This function fetches the schema ids from the Schema Registry.

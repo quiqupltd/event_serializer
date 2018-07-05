@@ -14,11 +14,19 @@ defmodule EventSerializer.Decoder do
     <<_magic_bytes::bytes-size(4), schema_id::bytes-size(1), payload::binary>> = event
     <<parsed_schema_id::utf8>> = schema_id
 
-    decoder = :avlizer_confluent.make_decoder(parsed_schema_id)
-    decoded_message = :avlizer_confluent.decode(decoder, payload)
+    decoder = avlizer_confluent().make_decoder(parsed_schema_id)
+    decoded_message = avlizer_confluent().decode(decoder, payload)
 
     mapped_message = MapBuilder.to_map(decoded_message)
 
     {:ok, mapped_message}
+  end
+
+  def call(_) do
+    {:error, :invalid_binary}
+  end
+
+  defp avlizer_confluent do
+    EnvConfig.get(:event_serializer, :avlizer_confluent)
   end
 end

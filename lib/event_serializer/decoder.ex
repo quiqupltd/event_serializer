@@ -10,8 +10,7 @@ defmodule EventSerializer.Decoder do
   in the message so we can fetch the schema which will be already cached
   by the `EventSerializer.SchemaRegistryCache`.
   """
-  def call(event) do
-    <<_magic_bytes::bytes-size(4), schema_id::bytes-size(1), payload::binary>> = event
+  def call(<<_magic_bytes::bytes-size(4), schema_id::bytes-size(1), payload::binary>>) do
     <<parsed_schema_id::utf8>> = schema_id
 
     decoder = avlizer_confluent().make_decoder(parsed_schema_id)

@@ -15,6 +15,10 @@ defmodule EventSerializer.EncoderTest do
 
       assert <<0, 0, 0, 0, 1, 246, 1>> = value
     end
+
+    test "when the schema is not found returns :error", %{ key: key } do
+      assert {:error, "No matching schema found"} = Subject.call("not_found_schema", key)
+    end
   end
 end
 

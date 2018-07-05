@@ -24,8 +24,14 @@ defmodule EventSerializer.Encoder do
   Then we prepend the `schema_id` in message.
   """
   def call(schema_name, event) do
-    schema_id = schema_registry().fetch(schema_name)
+    schema_name |> schema_registry().fetch() |> encode(event)
+  end
 
+  defp encode(nil, _event) do
+    {:error, "No matching schema found"}
+  end
+
+  defp encode(schema_id, event) do
     encoder = avlizer_confluent().make_encoder(schema_id)
     bindata = avlizer_confluent().encode(encoder, event)
 

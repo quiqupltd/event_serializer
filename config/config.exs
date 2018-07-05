@@ -16,12 +16,9 @@ config :avlizer,
 config :event_serializer,
   schema_registry_url: "http://localhost:8081",
   topic_name: "com.quiqup.tracking_locations",
-  enabled: true
+  enabled: true,
+  schema_registry: EventSerializer.SchemaRegistryCache,
+  avlizer_confluent: :avlizer_confluent,
+  schema_registry_adapter: EventSerializer.SchemaRegistryAdapter
 
-# It is also possible to import configuration files, relative to this
-# directory. For example, you can emulate configuration per environment
-# by uncommenting the line below and defining dev.exs, test.exs and such.
-# Configuration from the imported file will override the ones defined
-# here (which is why it is important to import them last).
-#
-#     import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

@@ -7,26 +7,38 @@ defmodule EventSerializer.SchemaRegistryAdapter do
   alias EventSerializer.Config
 
   plug(Tesla.Middleware.Headers, %{"Content-Type" => "application/json"})
+  plug Tesla.Middleware.Tuples
   plug(Tesla.Middleware.JSON)
   plug(Tesla.Middleware.Logger)
 
   def schema_for(name) do
-    name |> fetch_schema() |> Map.fetch!("schema")
+    name |> fetch_schema("schema")
   end
 
   def schema_id_for(name) do
-    name |> fetch_schema() |> Map.fetch!("id")
+    name |> fetch_schema("id")
   end
 
-  defp fetch_schema(name) do
+  defp fetch_schema(name, attribute) do
     name
     |> url()
     |> get()
     |> parse_response()
+    |> extract_response(attribute)
   end
 
-  defp parse_response(response) do
+  defp parse_response({:ok, response}) do
     response.body |> Poison.decode!()
+  end
+
+  defp parse_response({:error, _error}), do: nil
+
+  defp extract_response(nil, _attribute), do: nil
+
+  defp extract_response(%{"error_code" => _error_code, "message" => _message}, _attribute), do: nil
+
+  defp extract_response(%{"id" => _id, "schema" => _schema} = map, attribute) do
+    map |> Map.fetch!(attribute)
   end
 
   defp url(name) do

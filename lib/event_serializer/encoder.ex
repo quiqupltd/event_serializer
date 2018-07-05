@@ -2,7 +2,6 @@ defmodule EventSerializer.Encoder do
   @moduledoc """
   This module is resposible to encode the message sent to a Kafka topic.
   """
-  alias EventSerializer.SchemaRegistryCache
 
   @doc """
   Elixir's erlavro library don't put some bytes used by Confluent for the Schema Registry.
@@ -25,11 +24,25 @@ defmodule EventSerializer.Encoder do
   Then we prepend the `schema_id` in message.
   """
   def call(schema_name, event) do
-    schema_id = SchemaRegistryCache.fetch(schema_name)
+    schema_name |> schema_registry().fetch() |> encode(event)
+  end
 
-    encoder = :avlizer_confluent.make_encoder(schema_id)
-    bindata = :avlizer_confluent.encode(encoder, event)
+  defp encode(nil, _event) do
+    {:error, "No matching schema found"}
+  end
+
+  defp encode(schema_id, event) do
+    encoder = avlizer_confluent().make_encoder(schema_id)
+    bindata = avlizer_confluent().encode(encoder, event)
 
     {:ok, IO.iodata_to_binary(<<0>> <> <<schema_id::size(32)>> <> bindata)}
+  end
+
+  defp schema_registry do
+    EnvConfig.get(:event_serializer, :schema_registry)
+  end
+
+  defp avlizer_confluent do
+    EnvConfig.get(:event_serializer, :avlizer_confluent)
   end
 end

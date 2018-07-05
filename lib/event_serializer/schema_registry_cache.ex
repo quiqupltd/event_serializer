@@ -26,7 +26,7 @@ defmodule EventSerializer.SchemaRegistryCache do
 
   require Logger
 
-  alias EventSerializer.{SchemaRegistryAdapter, Config}
+  alias EventSerializer.Config
 
   @name __MODULE__
 
@@ -83,8 +83,8 @@ defmodule EventSerializer.SchemaRegistryCache do
     schema_name_id = key_schema_name() |> fetch_id()
     schema_value_id = value_schema_name() |> fetch_id()
 
-    :avlizer_confluent.make_encoder(schema_name_id)
-    :avlizer_confluent.make_encoder(schema_value_id)
+    avlizer_confluent().make_encoder(schema_name_id)
+    avlizer_confluent().make_encoder(schema_value_id)
 
     [
       %{id: schema_name_id, name: key_schema_name()},
@@ -93,7 +93,7 @@ defmodule EventSerializer.SchemaRegistryCache do
   end
 
   def fetch_id(name) do
-    SchemaRegistryAdapter.schema_id_for(name)
+    schema_registry_adapter().schema_id_for(name)
   end
 
   def key_schema_name do
@@ -106,5 +106,13 @@ defmodule EventSerializer.SchemaRegistryCache do
 
   defp topic do
     Config.topic_name()
+  end
+
+  defp avlizer_confluent do
+    EnvConfig.get(:event_serializer, :avlizer_confluent)
+  end
+
+  defp schema_registry_adapter do
+    EnvConfig.get(:event_serializer, :schema_registry_adapter)
   end
 end

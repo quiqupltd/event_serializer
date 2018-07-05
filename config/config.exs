@@ -18,6 +18,7 @@ config :event_serializer,
   topic_name: "com.quiqup.tracking_locations",
   enabled: true,
   schema_registry: EventSerializer.SchemaRegistryCache,
-  avlizer_confluent: :avlizer_confluent
+  avlizer_confluent: :avlizer_confluent,
+  schema_registry_adapter: EventSerializer.SchemaRegistryAdapter
 
 import_config "#{Mix.env()}.exs"

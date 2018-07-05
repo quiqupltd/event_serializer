@@ -6,6 +6,7 @@ defmodule EventSerializer.MixProject do
       app: :event_serializer,
       version: "0.1.1",
       elixir: "~> 1.4",
+      elixirc_paths: elixirc_paths(Mix.env),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       description: description(),
@@ -20,6 +21,10 @@ defmodule EventSerializer.MixProject do
       extra_applications: [:logger]
     ]
   end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "web", "test/support"]
+  defp elixirc_paths(_), do: ["lib", "web"]
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do

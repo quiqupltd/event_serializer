@@ -4,15 +4,15 @@ defmodule EventSerializer.SchemaRegistryCache do
   and cache theirs names and ids.
 
   That result will be saved in a cache so we can re utilize in the
-  TrackingLocationsApi.Publisher
+  EventSerializer.Publisher
 
   We start the server using the start_link/0 function:
 
-    TrackingLocationsApi.SchemaRegistryServer.start_link()
+    EventSerializer.SchemaRegistryServer.start_link()
 
   Then we can fetch the id of the schema using the fetch/1 function.
 
-    TrackingLocationsApi.SchemaRegistryServer.fetch("com.quiqup.tracking-key")
+    EventSerializer.SchemaRegistryServer.fetch("com.quiqup.tracking-key")
   """
 
   defmodule State do
@@ -30,9 +30,7 @@ defmodule EventSerializer.SchemaRegistryCache do
 
   @name __MODULE__
 
-  def start_link do
-    GenServer.start_link(@name, [], name: @name)
-  end
+  def start_link, do: GenServer.start_link(@name, [], name: @name)
 
   @doc """
   This function starts the server and perform the cache.
@@ -44,12 +42,26 @@ defmodule EventSerializer.SchemaRegistryCache do
 
   def cache, do: GenServer.cast(@name, :cache)
 
+  @doc """
+  This function returns the schema id for a given schema_name
+
+  On application boot the key and value schema ids are saved in this GenServers
+  state, so here we can quickly retrive them
+
+  ## Example
+
+      iex(1)> SchemaRegistryCache.fetch("a_known_matching_schema_key")
+      2
+
+      iex(2)> SchemaRegistryCache.fetch("a_unknown_schema_key")
+      nil
+  """
   def fetch(schema_name), do: GenServer.call(@name, {:fetch, schema_name})
 
   def handle_cast(:cache, _state) do
-    result = fetch_schemas()
+    schemas = fetch_schemas()
 
-    new_state = Enum.map(result, fn schema -> struct(State, schema) end)
+    new_state = Enum.map(schemas, fn schema -> struct(State, schema) end)
 
     {:noreply, new_state}
   end
@@ -78,44 +90,41 @@ defmodule EventSerializer.SchemaRegistryCache do
   ## Example
 
     [
-      %{name: "com.quiqup.tracking-value", schema_id: 13},
-      %{name: "com.quiqup.tracking-key", schema_id: 12}
+      %{id: 13, name: "com.quiqup.tracking-value"},
+      %{id: 12, name: "com.quiqup.tracking-key"}
     ]
   """
   def fetch_schemas do
-    schema_name_id = key_schema_name() |> fetch_id()
-    schema_value_id = value_schema_name() |> fetch_id()
+    schema_name_id = key_schema_name() |> fetch_id() |> make_encoder()
+    schema_value_id = value_schema_name() |> fetch_id() |> make_encoder()
 
-    avlizer_confluent().make_encoder(schema_name_id)
-    avlizer_confluent().make_encoder(schema_value_id)
+    format_response(schema_name_id, schema_value_id)
+  end
 
+  def fetch_id(name), do: name |> schema_registry_adapter().schema_id_for()
+
+  def key_schema_name, do: topic() <> "-key"
+  def value_schema_name, do: topic() <> "-value"
+
+  defp format_response(nil, nil), do: []
+  defp format_response(_schema_name_id, nil), do: []
+  defp format_response(nil, _schema_value_id), do: []
+
+  defp format_response(schema_name_id, schema_value_id) do
     [
       %{id: schema_name_id, name: key_schema_name()},
       %{id: schema_value_id, name: value_schema_name()}
     ]
   end
 
-  def fetch_id(name) do
-    schema_registry_adapter().schema_id_for(name)
+  defp make_encoder(nil), do: nil
+  defp make_encoder(value) do
+    value |> avlizer_confluent().make_encoder()
+    value
   end
 
-  def key_schema_name do
-    topic() <> "-key"
-  end
-
-  def value_schema_name do
-    topic() <> "-value"
-  end
-
-  defp topic do
-    Config.topic_name()
-  end
-
-  defp avlizer_confluent do
-    EnvConfig.get(:event_serializer, :avlizer_confluent)
-  end
-
-  defp schema_registry_adapter do
-    EnvConfig.get(:event_serializer, :schema_registry_adapter)
-  end
+  # Config from env
+  defp topic, do: Config.topic_name()
+  defp avlizer_confluent, do: EnvConfig.get(:event_serializer, :avlizer_confluent)
+  defp schema_registry_adapter, do: EnvConfig.get(:event_serializer, :schema_registry_adapter)
 end

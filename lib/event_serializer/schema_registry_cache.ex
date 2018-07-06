@@ -42,6 +42,20 @@ defmodule EventSerializer.SchemaRegistryCache do
 
   def cache, do: GenServer.cast(@name, :cache)
 
+  @doc """
+  This function returns the schema id for a given schema_name
+
+  On application boot the key and value schema ids are saved in this GenServers
+  state, so here we can quickly retrive them
+
+  ## Example
+
+      iex(1)> SchemaRegistryCache.fetch("a_known_matching_schema_key")
+      2
+
+      iex(2)> SchemaRegistryCache.fetch("a_unknown_schema_key")
+      nil
+  """
   def fetch(schema_name), do: GenServer.call(@name, {:fetch, schema_name})
 
   def handle_cast(:cache, _state) do

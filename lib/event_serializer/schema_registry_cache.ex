@@ -4,15 +4,15 @@ defmodule EventSerializer.SchemaRegistryCache do
   and cache theirs names and ids.
 
   That result will be saved in a cache so we can re utilize in the
-  TrackingLocationsApi.Publisher
+  EventSerializer.Publisher
 
   We start the server using the start_link/0 function:
 
-    TrackingLocationsApi.SchemaRegistryServer.start_link()
+    EventSerializer.SchemaRegistryServer.start_link()
 
   Then we can fetch the id of the schema using the fetch/1 function.
 
-    TrackingLocationsApi.SchemaRegistryServer.fetch("com.quiqup.tracking-key")
+    EventSerializer.SchemaRegistryServer.fetch("com.quiqup.tracking-key")
   """
 
   defmodule State do

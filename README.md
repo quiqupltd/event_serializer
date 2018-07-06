@@ -7,7 +7,7 @@ This lib is responsible to encode and decode events from Kafka. it also includes
 ```elixir
 def deps do
   [
-    {:event_serializer, "~> 0.1.2", organization: :quiqup}
+    {:event_serializer, "~> 0.1.3", organization: :quiqup}
   ]
 end
 ```

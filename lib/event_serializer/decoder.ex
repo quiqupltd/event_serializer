@@ -25,7 +25,5 @@ defmodule EventSerializer.Decoder do
     {:error, :invalid_binary}
   end
 
-  defp avlizer_confluent do
-    EnvConfig.get(:event_serializer, :avlizer_confluent)
-  end
+  defp avlizer_confluent, do: EventSerializer.Config.avlizer_confluent
 end

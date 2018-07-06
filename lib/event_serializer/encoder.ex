@@ -38,11 +38,6 @@ defmodule EventSerializer.Encoder do
     {:ok, IO.iodata_to_binary(<<0>> <> <<schema_id::size(32)>> <> bindata)}
   end
 
-  defp schema_registry do
-    EnvConfig.get(:event_serializer, :schema_registry)
-  end
-
-  defp avlizer_confluent do
-    EnvConfig.get(:event_serializer, :avlizer_confluent)
-  end
+  defp schema_registry, do: EventSerializer.Config.schema_registry
+  defp avlizer_confluent, do: EventSerializer.Config.avlizer_confluent
 end

@@ -11,6 +11,18 @@ defmodule EventSerializer.Config do
     enabled(EnvConfig.get(:event_serializer, :enabled))
   end
 
+  def avlizer_confluent do
+    EnvConfig.get(:event_serializer, :avlizer_confluent, :avlizer_confluent)
+  end
+
+  def schema_registry_adapter do
+    EnvConfig.get(:event_serializer, :schema_registry_adapter, EventSerializer.SchemaRegistryAdapter)
+  end
+
+  def schema_registry do
+    EnvConfig.get(:event_serializer, :schema_registry, EventSerializer.SchemaRegistryCache)
+  end
+
   defp enabled(true), do: true
   defp enabled(_), do: false
 end

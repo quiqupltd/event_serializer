@@ -125,6 +125,6 @@ defmodule EventSerializer.SchemaRegistryCache do
 
   # Config from env
   defp topic, do: Config.topic_name()
-  defp avlizer_confluent, do: EnvConfig.get(:event_serializer, :avlizer_confluent)
-  defp schema_registry_adapter, do: EnvConfig.get(:event_serializer, :schema_registry_adapter)
+  defp avlizer_confluent, do: Config.avlizer_confluent
+  defp schema_registry_adapter, do: Config.schema_registry_adapter
 end

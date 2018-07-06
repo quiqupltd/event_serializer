@@ -59,9 +59,9 @@ defmodule EventSerializer.SchemaRegistryCache do
   def fetch(schema_name), do: GenServer.call(@name, {:fetch, schema_name})
 
   def handle_cast(:cache, _state) do
-    result = fetch_schemas()
+    schemas = fetch_schemas()
 
-    new_state = Enum.map(result, fn schema -> struct(State, schema) end)
+    new_state = Enum.map(schemas, fn schema -> struct(State, schema) end)
 
     {:noreply, new_state}
   end

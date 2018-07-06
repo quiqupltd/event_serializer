@@ -30,9 +30,7 @@ defmodule EventSerializer.SchemaRegistryCache do
 
   @name __MODULE__
 
-  def start_link do
-    GenServer.start_link(@name, [], name: @name)
-  end
+  def start_link, do: GenServer.start_link(@name, [], name: @name)
 
   @doc """
   This function starts the server and perform the cache.
@@ -95,27 +93,16 @@ defmodule EventSerializer.SchemaRegistryCache do
     ]
   end
 
-  def fetch_id(name) do
-    schema_registry_adapter().schema_id_for(name)
-  end
+  def fetch_id(name), do: name |> schema_registry_adapter().schema_id_for()
 
-  def key_schema_name do
-    topic() <> "-key"
-  end
+  def key_schema_name, do: topic() <> "-key"
+  def value_schema_name, do: topic() <> "-value"
 
-  def value_schema_name do
-    topic() <> "-value"
-  end
 
-  defp topic do
-    Config.topic_name()
-  end
 
-  defp avlizer_confluent do
-    EnvConfig.get(:event_serializer, :avlizer_confluent)
-  end
 
-  defp schema_registry_adapter do
-    EnvConfig.get(:event_serializer, :schema_registry_adapter)
-  end
+  # Config from env
+  defp topic, do: Config.topic_name()
+  defp avlizer_confluent, do: EnvConfig.get(:event_serializer, :avlizer_confluent)
+  defp schema_registry_adapter, do: EnvConfig.get(:event_serializer, :schema_registry_adapter)
 end

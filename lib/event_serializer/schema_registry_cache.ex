@@ -95,16 +95,10 @@ defmodule EventSerializer.SchemaRegistryCache do
     ]
   """
   def fetch_schemas do
-    schema_name_id = key_schema_name() |> fetch_id()
-    schema_value_id = value_schema_name() |> fetch_id()
+    schema_name_id = key_schema_name() |> fetch_id() |> make_encoder()
+    schema_value_id = value_schema_name() |> fetch_id() |> make_encoder()
 
-    avlizer_confluent().make_encoder(schema_name_id)
-    avlizer_confluent().make_encoder(schema_value_id)
-
-    [
-      %{id: schema_name_id, name: key_schema_name()},
-      %{id: schema_value_id, name: value_schema_name()}
-    ]
+    format_response(schema_name_id, schema_value_id)
   end
 
   def fetch_id(name), do: name |> schema_registry_adapter().schema_id_for()
@@ -112,8 +106,20 @@ defmodule EventSerializer.SchemaRegistryCache do
   def key_schema_name, do: topic() <> "-key"
   def value_schema_name, do: topic() <> "-value"
 
+  defp format_response(nil, nil), do: []
 
+  defp format_response(schema_name_id, schema_value_id) do
+    [
+      %{id: schema_name_id, name: key_schema_name()},
+      %{id: schema_value_id, name: value_schema_name()}
+    ]
+  end
 
+  defp make_encoder(nil), do: nil
+  defp make_encoder(value) do
+    value |> avlizer_confluent().make_encoder()
+    value
+  end
 
   # Config from env
   defp topic, do: Config.topic_name()

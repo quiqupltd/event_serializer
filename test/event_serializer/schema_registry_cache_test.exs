@@ -16,6 +16,22 @@ defmodule EventSerializer.SchemaRegistryCacheTest do
     :ok
   end
 
+  describe "fetch_schemas/0" do
+    test "it returns an empty array when the Schema Registry does not respond" do
+      Application.put_env :event_serializer, :topic_name, "unknown-topic"
+
+      assert [] == Subject.fetch_schemas
+    end
+
+    test "it returns correct map when the Schema Registry does respond" do
+      expected_result = [
+        %{id: 1, name: "known-topic-key"},
+        %{id: 1, name: "known-topic-value"}
+      ]
+      assert Subject.fetch_schemas == expected_result
+    end
+  end
+
   describe "fetch/1" do
     test "when the schema is found it returns the schema id" do
       assert Subject.fetch("known-topic-key") == 1

@@ -90,8 +90,8 @@ defmodule EventSerializer.SchemaRegistryCache do
   ## Example
 
     [
-      %{name: "com.quiqup.tracking-value", schema_id: 13},
-      %{name: "com.quiqup.tracking-key", schema_id: 12}
+      %{id: 13, name: "com.quiqup.tracking-value"},
+      %{id: 12, name: "com.quiqup.tracking-key"}
     ]
   """
   def fetch_schemas do

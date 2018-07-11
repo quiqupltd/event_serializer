@@ -31,12 +31,13 @@ defmodule EventSerializer.SchemaRegistryAdapter do
     response.body |> Poison.decode!()
   end
 
-  defp parse_response({:error, _error}), do: nil
+  defp parse_response({:error, error}), do: {:error, error}
 
-  defp extract_response(nil, _attribute), do: nil
-
-  defp extract_response(%{"error_code" => _error_code, "message" => _message}, _attribute), do: nil
-
+  defp extract_response({:error, reason}, _attribute), do: {:error, reason}
+  defp extract_response(nil, _attribute), do: {:error, "nothing returned"}
+  defp extract_response(%{"error_code" => _error_code, "message" => message}, _attribute) do
+    {:error, message}
+  end
   defp extract_response(%{"id" => _id, "schema" => _schema} = map, attribute) do
     map |> Map.fetch!(attribute)
   end

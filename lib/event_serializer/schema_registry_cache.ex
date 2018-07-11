@@ -106,10 +106,8 @@ defmodule EventSerializer.SchemaRegistryCache do
   def key_schema_name, do: topic() <> "-key"
   def value_schema_name, do: topic() <> "-value"
 
-  defp format_response(nil, nil), do: []
   defp format_response(_schema_name_id, nil), do: []
   defp format_response(nil, _schema_value_id), do: []
-
   defp format_response(schema_name_id, schema_value_id) do
     [
       %{id: schema_name_id, name: key_schema_name()},

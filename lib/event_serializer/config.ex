@@ -26,6 +26,6 @@ defmodule EventSerializer.Config do
     EnvConfig.get(:event_serializer, :schema_registry, EventSerializer.SchemaRegistryCache)
   end
 
-  defp enabled(true), do: true
-  defp enabled(_), do: false
+  defp enabled(false), do: false
+  defp enabled(_), do: true
 end

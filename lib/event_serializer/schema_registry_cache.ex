@@ -117,7 +117,7 @@ defmodule EventSerializer.SchemaRegistryCache do
     ]
   end
 
-  defp make_encoder(nil), do: nil
+  defp make_encoder({:error, _reason}), do: nil
   defp make_encoder(value) do
     value |> avlizer_confluent().make_encoder()
     value

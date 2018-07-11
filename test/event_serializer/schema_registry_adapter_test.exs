@@ -21,7 +21,14 @@ defmodule EventSerializer.SchemaRegistryAdapterTest do
         raise %Tesla.Error{message: "adapter error: :econnrefused", reason: :econnrefused}
       end)
 
-      assert Subject.schema_for(schema_name) == nil
+      response = {
+        :error,
+        %Tesla.Error{
+          message: "adapter error: :econnrefused",
+          reason: :econnrefused
+        }
+      }
+      assert Subject.schema_for(schema_name) == response
     end
 
     test "returns nil when the schema cannot be found", %{
@@ -33,7 +40,7 @@ defmodule EventSerializer.SchemaRegistryAdapterTest do
         response |> tesla_response(404)
       end)
 
-      assert Subject.schema_for(schema_name) == nil
+      assert Subject.schema_for(schema_name) == {:error, "Subject not found."}
     end
 
     test "fetches the schema from the payload response", %{

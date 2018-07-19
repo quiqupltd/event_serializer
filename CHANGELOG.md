@@ -3,6 +3,7 @@
 ## 0.1.4
 
 * Added more safety around decoding and caching
+* Fixed decoding larger schema_ids
 
 ## 0.1.3
 

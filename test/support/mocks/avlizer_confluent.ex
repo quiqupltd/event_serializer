@@ -6,7 +6,9 @@ defmodule EventSerializer.TestSupport.Mocks.AvlizerConfluentMock do
 
   # matches raw kafka payload when the encoded byte has version 1 schema
   # eg <<0, 0, 0, 0, 1, ...
-  def make_decoder(_schema_id = 1), do: "decoder"
+  def make_decoder(_schema_id = 1), do: "decoder1"
+  def make_decoder(_schema_id = 425), do: "decoder2"
   # default the matching decoder to return a known message
-  def decode("decoder", _payload), do: "decoded_message"
+  def decode("decoder1", payload), do: payload
+  def decode("decoder2", payload), do: payload
 end

@@ -1,6 +1,10 @@
 defmodule EventSerializer.Config do
+  @moduledoc """
+  Helpers for getting config
+  """
+
   def topic_name do
-    EnvConfig.get(:event_serializer, :topic_name) |> not_nil_topic_name
+    :event_serializer |> EnvConfig.get(:topic_name) |> not_nil_topic_name
   end
 
   defp not_nil_topic_name(nil), do: ""

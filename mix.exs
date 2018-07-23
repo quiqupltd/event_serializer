@@ -8,6 +8,7 @@ defmodule EventSerializer.MixProject do
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env),
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       deps: deps(),
       description: description(),
       package: package(),
@@ -34,6 +35,7 @@ defmodule EventSerializer.MixProject do
       {:tesla, "~> 0.10.0"},
       {:env_config, "~> 0.1.0"},
       {:ex_doc, ">= 0.0.0", only: :dev},
+      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
     ]
   end
 
@@ -46,6 +48,19 @@ defmodule EventSerializer.MixProject do
       maintainers: ["Luiz Varela", "Ian Vaughan"],
       licenses: ["UNLICENSED"],
       links: %{repository: "https://gitlab.quiqup.com/backend/event_serializer"}
+    ]
+  end
+
+  defp aliases do
+    [
+      test: ["test"],
+      consistency: consistency()
+    ]
+  end
+
+  defp consistency do
+    [
+      "credo --strict"
     ]
   end
 end

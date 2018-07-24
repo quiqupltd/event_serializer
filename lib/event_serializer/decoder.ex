@@ -21,6 +21,10 @@ defmodule EventSerializer.Decoder do
     end
   end
 
+  def call(_) do
+    {:error, :invalid_binary}
+  end
+
   def try_decode(decoder, payload) do
     try do
       {:ok, avlizer_confluent().decode(decoder, payload)}
@@ -28,10 +32,6 @@ defmodule EventSerializer.Decoder do
       error in MatchError ->
         {:error, "avlizer decode error " <> inspect(error)}
     end
-  end
-
-  def call(_) do
-    {:error, :invalid_binary}
   end
 
   defp avlizer_confluent, do: EventSerializer.Config.avlizer_confluent

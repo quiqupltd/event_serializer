@@ -12,11 +12,22 @@ defmodule EventSerializer.Decoder do
   """
   def call(<<_magic_bytes::bytes-size(1), schema_id::size(32), payload::binary>>) do
     decoder = avlizer_confluent().make_decoder(schema_id)
-    decoded_message = avlizer_confluent().decode(decoder, payload)
+    case try_decode(decoder, payload) do
+      {:ok, decoded_message} ->
+        mapped_message = MapBuilder.to_map(decoded_message)
+        {:ok, mapped_message}
+      {:error, error} ->
+        {:error, error}
+    end
+  end
 
-    mapped_message = MapBuilder.to_map(decoded_message)
-
-    {:ok, mapped_message}
+  def try_decode(decoder, payload) do
+    try do
+      {:ok, avlizer_confluent().decode(decoder, payload)}
+    rescue
+      error in MatchError ->
+        {:error, "avlizer decode error " <> inspect(error)}
+    end
   end
 
   def call(_) do

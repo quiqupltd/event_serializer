@@ -33,9 +33,20 @@ defmodule EventSerializer.Encoder do
 
   defp encode(schema_id, event) do
     encoder = avlizer_confluent().make_encoder(schema_id)
-    bindata = avlizer_confluent().encode(encoder, event)
 
-    {:ok, IO.iodata_to_binary(<<0>> <> <<schema_id::size(32)>> <> bindata)}
+    case try_encode(encoder, event) do
+      {:ok, bindata} -> {:ok, IO.iodata_to_binary(<<0>> <> <<schema_id::size(32)>> <> bindata)}
+      {:error, error} -> {:error, "avlizer encode error " <> inspect(error)}
+    end
+  end
+
+  defp try_encode(encoder, event) do
+    try do
+      {:ok, avlizer_confluent().encode(encoder, event)}
+    rescue
+      error in ErlangError ->
+        {:error, error}
+    end
   end
 
   defp schema_registry, do: EventSerializer.Config.schema_registry

@@ -21,5 +21,10 @@ defmodule EventSerializer.DecoderTest do
     test "with an invalid byte array it returns an error" do
       assert {:error, :invalid_binary} = Subject.call("")
     end
+
+    test "it errors the payload correctly with a low schema_id number" do
+      event = <<0, 0, 0, 0, 1, 246, 1, 2>>
+      assert {:error, "avlizer decode error %MatchError{term: nil}"} = Subject.call(event)
+    end
   end
 end

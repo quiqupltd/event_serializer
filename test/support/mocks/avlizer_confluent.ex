@@ -10,6 +10,7 @@ defmodule EventSerializer.TestSupport.Mocks.AvlizerConfluentMock do
   def make_decoder(_schema_id = 1), do: "decoder1"
   def make_decoder(_schema_id = 425), do: "decoder2"
   # default the matching decoder to return a known message
-  def decode("decoder1", payload), do: payload
+  def decode("decoder1", <<246, 1>>), do: <<246, 1>>
   def decode("decoder2", payload), do: payload
+  def decode("decoder1", <<246, 1, 2>>), do: raise MatchError
 end

@@ -3,21 +3,19 @@ defmodule EventSerializer.EncoderTest do
 
   alias EventSerializer.Encoder, as: Subject
 
-  setup do
-    key = [{"id", 123}]
-
-    %{key: key}
-  end
-
   describe "call/1" do
-    test "when the schema is found it encodes the payload correctly", %{ key: key } do
-      {:ok, value} = Subject.call("found_schema", key)
+    test "when the schema is found it encodes the payload correctly" do
+      {:ok, value} = Subject.call("found_schema", "valid_payload")
 
       assert <<0, 0, 0, 0, 1, 246, 1>> = value
     end
 
-    test "when the schema is not found returns :error", %{ key: key } do
-      assert {:error, "No matching schema found"} = Subject.call("not_found_schema", key)
+    test "when the schema is not found returns :error" do
+      assert {:error, "No matching schema found"} = Subject.call("not_found_schema", "valid_payload")
+    end
+
+    test "when the payload does not convert" do
+      assert {:error, "avlizer encode error %ErlangError{original: nil}"} = Subject.call("found_schema", "bad_payload")
     end
   end
 end

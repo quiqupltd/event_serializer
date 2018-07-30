@@ -1,5 +1,15 @@
 # Changelog for event_serializer
 
+## 0.1.5
+
+* [issue/2][2] Add .credo - Code analysis tool
+* [issue/18][18] Decode fails on invalid payload
+* [issue/17][17] Encoding with invalid payload blows up
+
+[2]: https://gitlab.quiqup.com/backend/event_serializer/issues/2
+[17]:https://gitlab.quiqup.com/backend/event_serializer/issues/17
+[18]:https://gitlab.quiqup.com/backend/event_serializer/issues/18
+
 ## 0.1.4
 
 * Added more safety around decoding and caching

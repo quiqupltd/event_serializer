@@ -12,7 +12,7 @@ defmodule EventSerializer.SchemaRegistryCache do
 
   Then we can fetch the id of the schema using the fetch/1 function.
 
-    EventSerializer.SchemaRegistryServer.fetch("com.quiqup.tracking-key")
+    EventSerializer.SchemaRegistryServer.fetch("topic-key")
   """
 
   defmodule State do
@@ -90,8 +90,8 @@ defmodule EventSerializer.SchemaRegistryCache do
   ## Example
 
     [
-      %{id: 13, name: "com.quiqup.tracking-value"},
-      %{id: 12, name: "com.quiqup.tracking-key"}
+      %{id: 13, name: "topic-value"},
+      %{id: 12, name: "topic-key"}
     ]
   """
   def fetch_schemas do

@@ -44,10 +44,9 @@ defmodule EventSerializer.MixProject do
   defp package do
     [
       files: ["lib", "mix.exs"],
-      organization: "quiqup",
       maintainers: ["Luiz Varela", "Ian Vaughan"],
-      licenses: ["UNLICENSED"],
-      links: %{repository: "https://gitlab.quiqup.com/backend/event_serializer"}
+      licenses: ["MIT"],
+      links: %{repository: "https://github.com/quiqupltd/event_serializer"}
     ]
   end
 

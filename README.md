@@ -1,5 +1,7 @@
 # EventSerializer
 
+[![Build Status](https://travis-ci.org/quiqupltd/event_serializer.svg)](https://travis-ci.org/quiqupltd/event_serializer) [![Coverage Status](https://coveralls.io/repos/github/quiqupltd/event_serializer/badge.svg?branch=master)](https://coveralls.io/github/quiqupltd/event_serializer?branch=master) [![Hex docs](http://img.shields.io/badge/hex.pm-docs-green.svg?style=flat-square)](https://hexdocs.pm/event_serializer) [![Hex Version](http://img.shields.io/hexpm/v/event_serializer.svg?style=flat-square)](https://hex.pm/packages/event_serializer) [![License](https://img.shields.io/hexpm/l/event_serializer.svg?style=flat-square)](https://github.com/quiqupltd/event_serializer/blob/master/LICENSE)
+
 This lib is responsible to encode and decode events from Kafka. it also includes a cache to fetch schemas.
 
 ## Installation

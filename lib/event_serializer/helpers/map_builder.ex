@@ -23,11 +23,14 @@ defmodule EventSerializer.Helpers.MapBuilder do
   """
   def to_map(list) when is_list(list) and length(list) > 0 do
     case list |> List.first() do
-      {_, _} ->
+      {_, _} = t when is_tuple(t) ->
         Enum.reduce(list, %{}, fn tuple, acc ->
           {key, value} = tuple
           Map.put(acc, key, to_map(value))
         end)
+
+      l when is_list(l) ->
+        Enum.map(list, &to_map/1)
 
       _ ->
         list

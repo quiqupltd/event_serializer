@@ -4,14 +4,14 @@ defmodule EventSerializer.MixProject do
   def project do
     [
       app: :event_serializer,
-      version: "0.1.5",
+      version: "1.0.0",
       elixir: "~> 1.4",
-      elixirc_paths: elixirc_paths(Mix.env),
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps(),
       description: description(),
-      package: package(),
+      package: package()
     ]
   end
 
@@ -32,10 +32,10 @@ defmodule EventSerializer.MixProject do
     [
       {:avlizer, "~> 0.2.0"},
       {:poison, "~> 3.1.0"},
-      {:tesla, "~> 0.10.0"},
+      {:tesla, "~> 1.2.0"},
       {:env_config, "~> 0.1.0"},
       {:ex_doc, ">= 0.0.0", only: :dev},
-      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
+      {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -44,7 +44,7 @@ defmodule EventSerializer.MixProject do
   defp package do
     [
       files: ["lib", "mix.exs"],
-      maintainers: ["Luiz Varela", "Ian Vaughan"],
+      maintainers: ["Luiz Varela", "Ian Vaughan", "Danny Hawkins"],
       licenses: ["MIT"],
       links: %{repository: "https://github.com/quiqupltd/event_serializer"}
     ]

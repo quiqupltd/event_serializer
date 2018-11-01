@@ -18,16 +18,11 @@ defmodule EventSerializer.SchemaRegistryAdapterTest do
       schema_name: schema_name
     } do
       Tesla.Mock.mock(fn %{method: :get, url: ^url} ->
-        raise %Tesla.Error{message: "adapter error: :econnrefused", reason: :econnrefused}
+        {:error, :econnrefused}
       end)
 
-      response = {
-        :error,
-        %Tesla.Error{
-          message: "adapter error: :econnrefused",
-          reason: :econnrefused
-        }
-      }
+      response = {:error, :econnrefused}
+
       assert Subject.schema_for(schema_name) == response
     end
 

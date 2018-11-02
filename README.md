@@ -1,12 +1,6 @@
 # EventSerializer
 
-[![Build Status](https://api.travis-ci.com/quiqupltd/event_serializer.svg?branch=master)](https://travis-ci.com/quiqupltd/event_serializer.svg?branch=master) 
-
-[![Hex docs](http://img.shields.io/badge/hex.pm-docs-green.svg?style=flat-square)](https://hexdocs.pm/event_serializer) 
-
-[![Hex Version](http://img.shields.io/hexpm/v/event_serializer.svg?style=flat-square)](https://hex.pm/packages/event_serializer) 
-
-[![License](https://img.shields.io/hexpm/l/event_serializer.svg?style=flat-square)](https://github.com/quiqupltd/event_serializer/blob/master/LICENSE)
+[![Build Status](https://api.travis-ci.com/quiqupltd/event_serializer.svg?branch=master)](https://travis-ci.com/quiqupltd/event_serializer.svg?branch=master) [![Hex docs](http://img.shields.io/badge/hex.pm-docs-green.svg?style=flat-square)](https://hexdocs.pm/event_serializer) [![Hex Version](http://img.shields.io/hexpm/v/event_serializer.svg?style=flat-square)](https://hex.pm/packages/event_serializer) [![License](https://img.shields.io/hexpm/l/event_serializer.svg?style=flat-square)](https://github.com/quiqupltd/event_serializer/blob/master/LICENSE)
 
 This lib is responsible to encode and decode events from Kafka. it also includes a cache to fetch schemas.
 

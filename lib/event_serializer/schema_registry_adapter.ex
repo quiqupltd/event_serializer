@@ -6,8 +6,7 @@ defmodule EventSerializer.SchemaRegistryAdapter do
 
   alias EventSerializer.Config
 
-  plug(Tesla.Middleware.Headers, %{"Content-Type" => "application/json"})
-  plug Tesla.Middleware.Tuples
+  plug(Tesla.Middleware.Headers, [{"Content-Type", "application/json"}])
   plug(Tesla.Middleware.JSON)
   plug(Tesla.Middleware.Logger)
 
@@ -27,9 +26,11 @@ defmodule EventSerializer.SchemaRegistryAdapter do
 
   defp extract_response({:error, reason}, _attribute), do: {:error, reason}
   defp extract_response(nil, _attribute), do: {:error, "nothing returned"}
+
   defp extract_response(%{"error_code" => _error_code, "message" => message}, _attribute) do
     {:error, message}
   end
+
   defp extract_response(%{"id" => _id, "schema" => _schema} = map, attribute) do
     map |> Map.fetch!(attribute)
   end

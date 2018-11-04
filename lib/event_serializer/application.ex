@@ -19,6 +19,7 @@ defmodule EventSerializer.Application do
       supervisor(EventSerializer.SchemaRegistryCache, [])
     ]
   end
+
   defp children(_), do: []
 
   defp enabled? do

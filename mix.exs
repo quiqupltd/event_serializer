@@ -34,7 +34,7 @@ defmodule EventSerializer.MixProject do
       {:poison, "~> 3.1.0"},
       {:tesla, "~> 1.2.0"},
       {:env_config, "~> 0.1.0"},
-      {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
+      {:ex_doc, ">=0.0.0", only: :dev, runtime: false},
       {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false}
     ]
   end

@@ -34,7 +34,7 @@ defmodule EventSerializer.MixProject do
       {:poison, "~> 3.1.0"},
       {:tesla, "~> 1.2.0"},
       {:env_config, "~> 0.1.0"},
-      {:ex_doc, ">= 0.0.0", only: :dev},
+      {:ex_doc, "~> 0.18.0", only: :dev, runtime: false},
       {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false}
     ]
   end
@@ -43,10 +43,12 @@ defmodule EventSerializer.MixProject do
 
   defp package do
     [
-      files: ["lib", "mix.exs"],
+      name: "event_serializer",
+      files: ["lib", "mix.exs", "CHANGELOG*", "LICENSE*", "README*"],
       maintainers: ["@luizvarela", "@ianvaughan", "@danhawkins"],
       licenses: ["MIT"],
-      links: %{repository: "https://github.com/quiqupltd/event_serializer"}
+      source_url: "https://github.com/quiqupltd/event_serializer",
+      links: %{"GitHub" => "https://github.com/quiqupltd/event_serializer"}
     ]
   end
 

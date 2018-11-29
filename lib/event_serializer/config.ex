@@ -3,12 +3,12 @@ defmodule EventSerializer.Config do
   Helpers for getting config
   """
 
-  def topic_name do
-    :event_serializer |> EnvConfig.get(:topic_name) |> not_nil_topic_name
+  def topic_names do
+    :event_serializer |> EnvConfig.get(:topic_names) |> not_nil_topic_names
   end
 
-  defp not_nil_topic_name(nil), do: ""
-  defp not_nil_topic_name(topic_name), do: topic_name
+  defp not_nil_topic_names(nil), do: []
+  defp not_nil_topic_names(topic_names), do: topic_names
 
   def schema_registry_url do
     EnvConfig.get(:event_serializer, :schema_registry_url)
@@ -23,7 +23,11 @@ defmodule EventSerializer.Config do
   end
 
   def schema_registry_adapter do
-    EnvConfig.get(:event_serializer, :schema_registry_adapter, EventSerializer.SchemaRegistryAdapter)
+    EnvConfig.get(
+      :event_serializer,
+      :schema_registry_adapter,
+      EventSerializer.SchemaRegistryAdapter
+    )
   end
 
   def schema_registry do

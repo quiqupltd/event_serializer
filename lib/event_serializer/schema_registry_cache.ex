@@ -105,8 +105,8 @@ defmodule EventSerializer.SchemaRegistryCache do
   def value_schema_name(topic), do: topic <> "-value"
 
   defp fetch_schema(topic) do
-    schema_name_id = key_schema_name(topic) |> fetch_id() |> make_encoder()
-    schema_value_id = value_schema_name(topic) |> fetch_id() |> make_encoder()
+    schema_name_id = topic |> key_schema_name() |> fetch_id() |> make_encoder()
+    schema_value_id = topic |> value_schema_name() |> fetch_id() |> make_encoder()
 
     format_response(topic, schema_name_id, schema_value_id)
   end

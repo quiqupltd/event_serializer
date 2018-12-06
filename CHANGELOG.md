@@ -1,5 +1,10 @@
 # Changelog for event_serializer
 
+## 2.0.0
+
+- Allow for multiple topics in configuration
+
+
 ## 1.0.0
 
 - Update to user Testa 1.2.0

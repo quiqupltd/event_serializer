@@ -4,8 +4,8 @@ defmodule EventSerializer.MixProject do
   def project do
     [
       app: :event_serializer,
-      version: "1.0.0",
-      elixir: "~> 1.4",
+      version: "2.0.0",
+      elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -45,7 +45,7 @@ defmodule EventSerializer.MixProject do
     [
       name: "event_serializer",
       files: ["lib", "mix.exs", "CHANGELOG*", "LICENSE*", "README*"],
-      maintainers: ["@luizvarela", "@ianvaughan", "@danhawkins"],
+      maintainers: ["@luizvarela", "@ianvaughan", "@danhawkins", "@thau"],
       licenses: ["MIT"],
       source_url: "https://github.com/quiqupltd/event_serializer",
       links: %{"GitHub" => "https://github.com/quiqupltd/event_serializer"}

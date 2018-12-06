@@ -9,7 +9,7 @@ This lib is responsible to encode and decode events from Kafka. it also includes
 ```elixir
 def deps do
   [
-    {:event_serializer, "~> 0.1.5"}
+    {:event_serializer, "~> 2.0.0"}
   ]
 end
 ```
@@ -28,7 +28,7 @@ config :avlizer,
 
 config :event_serializer,
   schema_registry_url: "http://localhost:8081",
-  topic_name: "com.example.topic.name",
+  topic_names: ["com.example.topic.name"],
   enabled: true
 ```
 We need those two `schema_registry_url` because the `avlizer` requires it.

@@ -95,34 +95,41 @@ defmodule EventSerializer.SchemaRegistryCache do
     ]
   """
   def fetch_schemas do
-    schema_name_id = key_schema_name() |> fetch_id() |> make_encoder()
-    schema_value_id = value_schema_name() |> fetch_id() |> make_encoder()
-
-    format_response(schema_name_id, schema_value_id)
+    topics()
+    |> Enum.flat_map(&fetch_schema/1)
   end
 
   def fetch_id(name), do: name |> schema_registry_adapter().schema_id_for()
 
-  def key_schema_name, do: topic() <> "-key"
-  def value_schema_name, do: topic() <> "-value"
+  def key_schema_name(topic), do: topic <> "-key"
+  def value_schema_name(topic), do: topic <> "-value"
 
-  defp format_response(_schema_name_id, nil), do: []
-  defp format_response(nil, _schema_value_id), do: []
-  defp format_response(schema_name_id, schema_value_id) do
+  defp fetch_schema(topic) do
+    schema_name_id = topic |> key_schema_name() |> fetch_id() |> make_encoder()
+    schema_value_id = topic |> value_schema_name() |> fetch_id() |> make_encoder()
+
+    format_response(topic, schema_name_id, schema_value_id)
+  end
+
+  defp format_response(_topic, _schema_name_id, nil), do: []
+  defp format_response(_topic, nil, _schema_value_id), do: []
+
+  defp format_response(topic, schema_name_id, schema_value_id) do
     [
-      %{id: schema_name_id, name: key_schema_name()},
-      %{id: schema_value_id, name: value_schema_name()}
+      %{id: schema_name_id, name: key_schema_name(topic)},
+      %{id: schema_value_id, name: value_schema_name(topic)}
     ]
   end
 
   defp make_encoder({:error, _reason}), do: nil
+
   defp make_encoder(value) do
     value |> avlizer_confluent().make_encoder()
     value
   end
 
   # Config from env
-  defp topic, do: Config.topic_name()
-  defp avlizer_confluent, do: Config.avlizer_confluent
-  defp schema_registry_adapter, do: Config.schema_registry_adapter
+  defp topics, do: Config.topic_names()
+  defp avlizer_confluent, do: Config.avlizer_confluent()
+  defp schema_registry_adapter, do: Config.schema_registry_adapter()
 end

@@ -5,7 +5,7 @@ defmodule EventSerializer.MixProject do
     [
       app: :event_serializer,
       version: "2.0.0",
-      elixir: "~> 1.4",
+      elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),

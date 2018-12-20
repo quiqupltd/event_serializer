@@ -42,5 +42,6 @@ defmodule EventSerializer.Helpers.MapBuilder do
     Enum.into([{key, to_map(value)}], %{})
   end
 
+  def to_map(:null), do: nil
   def to_map(value), do: value
 end

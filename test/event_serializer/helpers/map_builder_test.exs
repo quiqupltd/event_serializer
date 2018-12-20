@@ -26,5 +26,11 @@ defmodule EventSerializer.Helpers.MapBuilderTest do
 
       assert MapBuilder.to_map(payload) == expected
     end
+
+    test "null atoms are converted to nils" do
+      payload = [{"a", :null}]
+
+      assert MapBuilder.to_map(payload) == %{"a" => nil}
+    end
   end
 end

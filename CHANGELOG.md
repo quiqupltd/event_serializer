@@ -1,5 +1,9 @@
 # Changelog for event_serializer
 
+## 2.0.1
+
+- Fix decoding nulls into proper nils
+
 ## 2.0.0
 
 - Allow for multiple topics in configuration

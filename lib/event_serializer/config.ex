@@ -13,7 +13,7 @@ defmodule EventSerializer.Config do
   defp topic_names(list) when is_list(list), do: list
 
   defp topic_names(csv) when is_binary(csv) do
-    String.split(csv, ",", trim: true) |> Enum.map(&String.trim/1)
+    csv |> String.split(",", trim: true) |> Enum.map(&String.trim/1)
   end
 
   defp topic_names({mod, fun, args}) when is_atom(mod) and is_atom(fun) do

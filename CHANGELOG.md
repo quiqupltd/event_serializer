@@ -1,5 +1,9 @@
 # Changelog for event_serializer
 
+## 2.0.2
+
+- Extend Config.topic_names to allow CSV and functions
+
 ## 2.0.1
 
 - Fix decoding nulls into proper nils

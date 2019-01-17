@@ -30,7 +30,7 @@ defmodule EventSerializer.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:avlizer, "~> 0.2.0"},
+      {:avlizer, "~> 0.2.1"},
       {:poison, "~> 3.1.0"},
       {:tesla, "~> 1.2.0"},
       {:env_config, "~> 0.1.0"},

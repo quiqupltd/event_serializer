@@ -2,6 +2,8 @@ defmodule EventSerializer.TestSupport.Mocks.AvlizerConfluentMock do
   # matches when the schema is found and returned via SchemaRegistryMock
   def make_encoder(_known_schema_id = 1), do: "encoder"
   def make_encoder(_known_schema_id = 2), do: "encoder"
+  def make_encoder(_known_schema_id = 3), do: "encoder"
+  def make_encoder(_known_schema_id = 4), do: "encoder"
   # :avlizer_confluent.encode(encoder, [{"id", 123}]) # => <<246, 1>>
   def encode("encoder", "valid_payload"), do: <<246, 1>>
   def encode("encoder", "bad_payload"), do: raise(ErlangError)

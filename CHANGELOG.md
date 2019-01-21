@@ -1,5 +1,9 @@
 # Changelog for event_serializer
 
+## 2.0.3
+
+- Adds missing clause for Config.topic_names to allow {:system, value} tuples in lists.
+
 ## 2.0.2
 
 - Extend Config.topic_names to allow CSV and functions
@@ -11,7 +15,6 @@
 ## 2.0.0
 
 - Allow for multiple topics in configuration
-
 
 ## 1.0.0
 

@@ -4,7 +4,7 @@ defmodule EventSerializer.MixProject do
   def project do
     [
       app: :event_serializer,
-      version: "2.0.1",
+      version: "2.0.2",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
@@ -30,7 +30,7 @@ defmodule EventSerializer.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:avlizer, "~> 0.2.0"},
+      {:avlizer, "~> 0.2.1"},
       {:poison, "~> 3.1.0"},
       {:tesla, "~> 1.2.0"},
       {:env_config, "~> 0.1.0"},

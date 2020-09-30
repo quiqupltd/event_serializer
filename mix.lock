@@ -1,11 +1,11 @@
 %{
-  "avlizer": {:hex, :avlizer, "0.2.3", "6a4f97e2595d87d4ddd7d0bb5a156a7b81be13ff4f63e8298b100c1c0562582f", [:rebar3], [{:erlavro, "2.6.3", [hex: :erlavro, repo: "hexpm", optional: false]}], "hexpm"},
+  "avlizer": {:git, "https://github.com/klarna/avlizer.git", "1a08628ba06585fda73a504e8d1c02cef8aeda73", []},
   "bunt": {:hex, :bunt, "0.2.0", "951c6e801e8b1d2cbe58ebbd3e616a869061ddadcc4863d0a2182541acae9a38", [:mix], [], "hexpm"},
   "confex": {:hex, :confex, "3.3.1", "8febaf751bf293a16a1ed2cbd258459cdcc7ca53cfa61d3f83d49dd276a992b4", [:mix], [], "hexpm"},
   "credo": {:hex, :credo, "0.9.3", "76fa3e9e497ab282e0cf64b98a624aa11da702854c52c82db1bf24e54ab7c97a", [:mix], [{:bunt, "~> 0.2.0", [hex: :bunt, repo: "hexpm", optional: false]}, {:poison, ">= 0.0.0", [hex: :poison, repo: "hexpm", optional: false]}], "hexpm"},
   "earmark": {:hex, :earmark, "1.2.6", "b6da42b3831458d3ecc57314dff3051b080b9b2be88c2e5aa41cd642a5b044ed", [:mix], [], "hexpm"},
   "env_config": {:hex, :env_config, "0.1.0", "7ff17696787ff15ca59358d4770d32fe628eb06c46fa4682c009562388debdd2", [:mix], [], "hexpm"},
-  "erlavro": {:hex, :erlavro, "2.6.3", "1787de850f9ffd9ee004719cc803d06e86e93f4bf66ff5e5937526f2837d1e95", [:make, :rebar, :rebar3], [{:jsone, "1.4.6", [hex: :jsone, repo: "hexpm", optional: false]}], "hexpm"},
+  "erlavro": {:hex, :erlavro, "2.9.0", "a709780bde5fd16cb3ea759bc34c4fe5276513a8c6eeeab3cf0df7d2ca92dcb2", [:make, :rebar, :rebar3], [{:jsone, "1.4.6", [hex: :jsone, repo: "hexpm", optional: false]}], "hexpm"},
   "ex_doc": {:hex, :ex_doc, "0.19.1", "519bb9c19526ca51d326c060cb1778d4a9056b190086a8c6c115828eaccea6cf", [:mix], [{:earmark, "~> 1.1", [hex: :earmark, repo: "hexpm", optional: false]}, {:makeup_elixir, "~> 0.7", [hex: :makeup_elixir, repo: "hexpm", optional: false]}], "hexpm"},
   "jsone": {:hex, :jsone, "1.4.6", "644d6d57befb22c8e19b324dee19d73b1c004565009861a8f64c68b7b9e64dbf", [:rebar3], [], "hexpm"},
   "makeup": {:hex, :makeup, "0.5.5", "9e08dfc45280c5684d771ad58159f718a7b5788596099bdfb0284597d368a882", [:mix], [{:nimble_parsec, "~> 0.4", [hex: :nimble_parsec, repo: "hexpm", optional: false]}], "hexpm"},
